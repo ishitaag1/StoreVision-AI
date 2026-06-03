@@ -4,8 +4,6 @@ import numpy as np
 from datetime import datetime
 from typing import Dict, List, Tuple, Set, Optional
 
-# Layout Zone Mappings matching the 'Store 1 - layout.jpg' specifications
-# Normalized coordinates mapped across a standard 1080p surveillance video frame
 STORE_LAYOUT_POLYGONS = {
     "CAM_FLOOR_01": {
         "MINIMALIS": np.array([(100, 100), (450, 100), (450, 400), (100, 400)], dtype=np.int32),
@@ -18,7 +16,6 @@ STORE_LAYOUT_POLYGONS = {
     }
 }
 
-# ✅ FIXED: Harmonized variable name to match usage inside functions perfectly
 ENTRY_THRESHOLD_Y_LINE = 600  
 
 class SpatialStateTracker:
@@ -27,7 +24,7 @@ class SpatialStateTracker:
         self.active_zone_dwells: Dict[Tuple[int, str], datetime] = {}
         self.last_dwell_emission: Dict[Tuple[int, str], datetime] = {}
         self.billing_queue_registry: Set[int] = set()
-        self.historical_exit_registry: Dict[str, datetime] = {}  # visitor_token -> exit_time
+        self.historical_exit_registry: Dict[str, datetime] = {}  
 
     def evaluate_staff_uniform_ratio(self, frame, bbox: List[float]) -> bool:
         """
@@ -38,13 +35,11 @@ class SpatialStateTracker:
         if crop.size == 0:
             return False
         hsv_image = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
-        # Uniform profile boundaries matching standard corporate black attributes
         lower_bound = np.array([0, 0, 0])
         upper_bound = np.array([180, 255, 40])
         mask = cv2.inRange(hsv_image, lower_bound, upper_bound)
         ratio = np.sum(mask > 0) / crop.size
         
-        # ✅ FIXED: Explicitly wrap with bool() to cast numpy.bool_ to a native Python serializable bool
         return bool(ratio > 0.50)  
 
     def process_spatial_rules(self, track_id: int, bbox: List[float], camera_id: str, current_time: datetime, frame) -> List[Tuple[str, Dict]]:
@@ -53,7 +48,7 @@ class SpatialStateTracker:
         """
         x1, y1, x2, y2 = bbox
         cx = int(x1 + (x2 - x1) / 2)
-        cy = int(y2)  # Base boundary center point
+        cy = int(y2) 
         
         visitor_token = str(track_id)
         is_staff = self.evaluate_staff_uniform_ratio(frame, bbox)
