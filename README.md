@@ -31,7 +31,7 @@ To process the raw CCTV clips and stream data into the API, run the edge trackin
    cd pipeline
    ./run.bat
    ```
-. Open the Live Stream tab in the Next.js dashboard at http://localhost:3000/live-stream to watch the YOLOv8 telemetry feed render in real-time as the script processes the video!
+3. Open the Live Stream tab in the Next.js dashboard at http://localhost:3000/live-stream to watch the YOLOv8 telemetry feed render in real-time as the script processes the video!
 
 ## Running Automated Tests
 To run the Pytest suite (which tests idempotency, schema validation, and edge-case funnel handling):
