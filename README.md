@@ -8,7 +8,7 @@ Ensure you have Docker and Docker Compose installed.
 
 1. **Clone the repository and enter the directory:**
 ```bash
-   git clone https://github.com/Sankalpa-01/Store-Intelligence-System
+   git clone https://github.com/ishitaag1/StoreVision-AI
    cd store-intelligence-system
 ```
 2. **Boot the entire stack (Database, API, and Frontend):**
